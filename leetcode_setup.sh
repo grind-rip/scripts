@@ -10,19 +10,19 @@
 
 # Check if a URL is provided
 if [ $# -eq 0 ]; then
-    echo "Usage: $0 <leetcode-url>"
+    echo "Usage: ${0} <leetcode-url>"
     exit 1
 fi
 
 # Extract the problem name from the URL
-url=$1
-problem_part=$(echo "$url" | sed -E 's/.*problems\/([^\/]+).*/\1/')
+url=${1}
+problem_part=$(echo "${url}" | sed -E 's/.*problems\/([^\/]+).*/\1/')
 
 # Convert to snake case for Python files
-snake_case=$(echo "$problem_part" | sed 's/-/_/g')
+snake_case=$(echo "${problem_part}" | sed 's/-/_/g')
 
 # Get the problem title (converting from kebab-case to Title Case)
-title=$(echo "$problem_part" | sed 's/-/ /g' | awk '{for(i=1;i<=NF;i++) $i=toupper(substr($i,1,1)) substr($i,2)} 1')
+title=$(echo "${problem_part}" | sed 's/-/ /g' | awk '{for(i=1;i<=NF;i++) $i=toupper(substr($i,1,1)) substr($i,2)} 1')
 
 # Create the Python source file
 cat > "../leetcode/src/${snake_case}.py" << EOF
